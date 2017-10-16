@@ -1,0 +1,66 @@
+apply plugin: 'com.android.application'
+/**
+ * 基本配置都在buildTypes、flavor
+ * 加载keystore隐藏签名
+ * 使用module动态依赖或者使用main同级的java folder动态依赖
+ * manifest和gradle文件中变量的使用
+ */
+def keystorePropertiesFile = rootProject.file("kestore.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+android {
+    signingConfigs {
+        config {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+        }
+    }
+    compileSdkVersion 25
+    buildToolsVersion "25.0.1"
+    defaultConfig {
+        applicationId "com.example.shinelon.qqview"
+        minSdkVersion 16
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+            buildConfigField ('String','N','"lkjh"')
+        }
+        debug {
+            zipAlignEnabled true
+        }
+    }
+    productFlavors {
+        Fisrstflavor {
+            minSdkVersion 15
+            applicationId 'com.example.shinelon.qqview.a'
+            targetSdkVersion 'API:24'
+            versionCode 1
+            versionName '1.0'
+            manifestPlaceholders = [app_name_this:"QQ_VIEW"]
+        }
+        Secondflavor {
+            minSdkVersion 15
+            buildConfigField ('String','IBS','"abcde"')
+            manifestPlaceholders = [app_name_this:"QQ_VIEW____"]
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile "com.android.support:appcompat-v7:$support_version"
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
+}

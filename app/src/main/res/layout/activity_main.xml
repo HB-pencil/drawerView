@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="#000000">
+    <com.example.shinelon.qqview.customScrollerView
+        android:id="@+id/my_menu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:rightPadding="85dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary">
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorAccent">
+            </RelativeLayout>
+        </LinearLayout>
+    </com.example.shinelon.qqview.customScrollerView>
+
+</RelativeLayout>
